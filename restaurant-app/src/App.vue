@@ -3,6 +3,7 @@
   <div id="app">
     <nav>
       <router-link to="/" class="nav-link">Home</router-link>
+      <router-link to="/favorites">Favorites</router-link>
     </nav>
     <router-view></router-view>
   </div>
