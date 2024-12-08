@@ -1,42 +1,34 @@
 <!-- src/views/HomePage.vue -->
 <template>
-    <div class="home-page">
-      <h1>Restaurant Explorer</h1>
-      
-      <!-- Search Bar -->
-      <div class="search-container">
-        <input 
-          v-model="searchQuery" 
-          @input="searchRestaurants"
-          placeholder="Search restaurants..."
-          class="search-input"
-        >
-      </div>
-  
-      <!-- Loading State -->
-      <div v-if="loading" class="loading">
-        Loading restaurants...
-      </div>
-  
-      <!-- Error State -->
-      <div v-if="error" class="error">
-        {{ error }}
-      </div>
-  
-      <!-- Restaurants List -->
-      <div class="restaurants-grid" v-if="displayedRestaurants.length">
-        <restaurant-card 
-          v-for="restaurant in displayedRestaurants" 
-          :key="restaurant.id" 
-          :restaurant="restaurant"
-        />
-      </div>
-  
-      <!-- No Results -->
-      <div v-else-if="!loading && searchQuery" class="no-results">
-        No restaurants found matching "{{ searchQuery }}"
-      </div>
+    <div class="container my-5">
+    <h1 class="mb-4 text-center">Restaurant Explorer</h1>
+
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <input 
+        v-model="searchQuery" 
+        @input="searchRestaurants" 
+        placeholder="Search restaurants..." 
+        class="form-control"
+      />
     </div>
+
+    <!-- Loading State -->
+    <div v-if="loading" class="text-center">Loading restaurants...</div>
+
+    <!-- Error State -->
+    <div v-if="error" class="alert alert-danger text-center">{{ error }}</div>
+
+    <!-- Restaurants List -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" v-if="displayedRestaurants.length">
+      <restaurant-card v-for="restaurant in displayedRestaurants" :key="restaurant.id" :restaurant="restaurant" />
+    </div>
+
+    <!-- No Results -->
+    <div v-else-if="!loading && searchQuery" class="text-center text-muted">
+      No restaurants found matching "{{ searchQuery }}"
+    </div>
+  </div>
   </template>
   
   <script>
@@ -92,36 +84,5 @@
   </script>
   
   <style scoped>
-  .home-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
   
-  .search-container {
-    margin-bottom: 20px;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .restaurants-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .loading, .error, .no-results {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .error {
-    color: red;
-  }
   </style>

@@ -1,90 +1,54 @@
 <!-- src/views/DetailPage.vue -->
 <template>
-  <div v-if="loading" class="loading">
+  <div v-if="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
     Loading restaurant details...
   </div>
 
-  <div v-else-if="error" class="error">
-    {{ error }}
-  </div>
-
-  <div v-else-if="restaurant" class="restaurant-detail">
-    <div class="restaurant-header">
-      <img 
-        :src="imageUrl" 
-        :alt="restaurant.name" 
-        class="restaurant-image"
-      >
-      <div class="restaurant-basic-info">
-        <div class="name-and-favorite">
-          <h1>{{ restaurant.name }}</h1>
-          <button 
-            @click="toggleFavorite" 
-            class="favorite-btn"
-            :class="{ 'is-favorite': isFavorite }"
-          >
+  <div v-else-if="restaurant" class="container my-5">
+    <div class="card mb-4 shadow-sm">
+      <img :src="imageUrl" :alt="restaurant.name" class="card-img-top" style="height: 300px; object-fit: cover;">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title">{{ restaurant.name }}</h3>
+          <button @click="toggleFavorite" class="btn btn-outline-danger">
             {{ isFavorite ? '❤️' : '🤍' }}
           </button>
         </div>
-        <div class="location-rating">
-          <span>📍 {{ restaurant.city }}, {{ restaurant.address }}</span>
-          <span>⭐ {{ restaurant.rating }}/5</span>
-        </div>
-        <div class="categories">
-          Categories: 
-          {{ restaurant.categories.map(cat => cat.name).join(', ') }}
-        </div>
+        <p class="text-muted">{{ restaurant.city }} | {{ restaurant.address }}</p>
+        <p class="text-warning">⭐ {{ restaurant.rating }}/5</p>
+        <p>{{ restaurant.description }}</p>
       </div>
     </div>
 
-    <div class="restaurant-description">
-      <h2>Description</h2>
-      <p>{{ restaurant.description }}</p>
-    </div>
-
-    <div class="restaurant-menu">
-      <div class="foods">
-        <h2>Foods</h2>
+    <!-- Menu Section -->
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Foods</h5>
         <ul>
-          <li v-for="food in restaurant.menus.foods" :key="food.name">
-            {{ food.name }}
-          </li>
+          <li v-for="food in restaurant.menus.foods" :key="food.name">{{ food.name }}</li>
         </ul>
       </div>
-      <div class="drinks">
-        <h2>Drinks</h2>
+      <div class="col-md-6">
+        <h5>Drinks</h5>
         <ul>
-          <li v-for="drink in restaurant.menus.drinks" :key="drink.name">
-            {{ drink.name }}
-          </li>
+          <li v-for="drink in restaurant.menus.drinks" :key="drink.name">{{ drink.name }}</li>
         </ul>
       </div>
     </div>
 
-    <div class="customer-reviews">
-      <h2>Customer Reviews</h2>
-      <div class="review-form">
-        <input 
-          v-model="newReview.name" 
-          placeholder="Your Name" 
-          class="review-input"
-        >
-        <textarea 
-          v-model="newReview.review" 
-          placeholder="Write your review" 
-          class="review-textarea"
-        ></textarea>
-        <button @click="submitReview" class="submit-review-btn">
-          Submit Review
-        </button>
+    <!-- Reviews Section -->
+    <div class="mt-4">
+      <h5>Customer Reviews</h5>
+      <div class="mb-4">
+        <input v-model="newReview.name" placeholder="Your Name" class="form-control mb-2">
+        <textarea v-model="newReview.review" placeholder="Write your review" class="form-control mb-3"></textarea>
+        <button @click="submitReview" class="btn btn-primary">Submit Review</button>
       </div>
-      <div 
-        v-for="(review, index) in restaurant.customerReviews" 
-        :key="index" 
-        class="review"
-      >
-        <strong>{{ review.name }}</strong>
-        <span class="review-date">{{ review.date }}</span>
+      <div v-for="(review, index) in restaurant.customerReviews" :key="index" class="card p-3 mb-2">
+        <h6>{{ review.name }}</h6>
         <p>{{ review.review }}</p>
       </div>
     </div>
@@ -194,15 +158,5 @@ export default {
 </script>
 
 <style scoped>
-/* Previous styles remain the same */
-.error {
-  color: red;
-  text-align: center;
-  padding: 20px;
-}
 
-.loading {
-  text-align: center;
-  padding: 20px;
-}
 </style>

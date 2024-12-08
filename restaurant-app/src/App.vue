@@ -1,9 +1,20 @@
 <!-- src/App.vue -->
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/" class="nav-link">Home</router-link>
-      <router-link to="/favorites">Favorites</router-link>
+   <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <router-link to="/" class="navbar-brand text-center">Restaurant Explorer</router-link>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/favorites" class="nav-link">Favorites</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
     <router-view></router-view>
   </div>
@@ -16,25 +27,5 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #333;
-}
 
-nav {
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-
-.nav-link {
-  color: #007bff;
-  text-decoration: none;
-  margin-right: 15px;
-}
-
-.nav-link:hover {
-  text-decoration: underline;
-}
 </style>

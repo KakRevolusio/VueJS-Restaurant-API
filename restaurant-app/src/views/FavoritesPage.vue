@@ -1,20 +1,17 @@
 <!-- src/views/FavoritesPage.vue -->
 <template>
-    <div class="favorites-page">
-      <h1>Favorite Restaurants</h1>
-      
-      <div v-if="favorites.length === 0" class="no-favorites">
-        <p>You haven't added any favorite restaurants yet.</p>
-      </div>
-      
-      <div v-else class="favorites-grid">
-        <RestaurantCard 
-          v-for="restaurant in favorites" 
-          :key="restaurant.id" 
-          :restaurant="restaurant"
-        />
-      </div>
+   <div class="container my-5">
+    <h1 class="mb-4">Favorite Restaurants</h1>
+    
+    <div v-if="favorites.length === 0" class="alert alert-info text-center">
+      <p>You haven't added any favorite restaurants yet.</p>
+      <router-link to="/" class="btn btn-primary">Browse Restaurants</router-link>
     </div>
+
+    <div v-else class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <RestaurantCard v-for="restaurant in favorites" :key="restaurant.id" :restaurant="restaurant" />
+    </div>
+  </div>
   </template>
   
   <script>
@@ -43,21 +40,5 @@
   </script>
   
   <style scoped>
-  .favorites-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
   
-  .no-favorites {
-    text-align: center;
-    color: #666;
-    margin-top: 50px;
-  }
-  
-  .favorites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
   </style>
